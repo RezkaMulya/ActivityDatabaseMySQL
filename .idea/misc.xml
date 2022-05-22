@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/riska/SEMESTER 4/Pengembangan Aplikasi Mobile (PAM)/ANDROID STUDIO PROGRAM/DatabaseMySQL/app/src/main/res/layout/activity_edit_teman.xml" value="0.1" />
         <entry key="..\:/riska/SEMESTER 4/Pengembangan Aplikasi Mobile (PAM)/ANDROID STUDIO PROGRAM/DatabaseMySQL/app/src/main/res/layout/activity_tambah_teman.xml" value="0.22" />
         <entry key="..\:/riska/SEMESTER 4/Pengembangan Aplikasi Mobile (PAM)/ANDROID STUDIO PROGRAM/DatabaseMySQL/app/src/main/res/layout/row_data_teman.xml" value="0.1" />
+        <entry key="..\:/riska/SEMESTER 4/Pengembangan Aplikasi Mobile (PAM)/ANDROID STUDIO PROGRAM/DatabaseMySQL/app/src/main/res/menu/menu.xml" value="0.1" />
       </map>
     </option>
   </component>
