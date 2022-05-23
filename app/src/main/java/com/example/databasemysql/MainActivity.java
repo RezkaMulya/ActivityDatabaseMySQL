@@ -29,30 +29,29 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView rv;
-    private FloatingActionButton fab;
+    private RecyclerView recyclerView;
     private TemanAdapter adapter;
     private ArrayList<Teman> temanArrayList = new ArrayList<>();
+    private FloatingActionButton fab;
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private static String url_select = "http://10.0.2.2/umyTI/bacateman.php";
+    private static String url_select = "https://20200140010.praktikumtiumy.com/bacateman.php";
     public static final String TAG_ID = "id";
     public static final String TAG_NAMA = "nama";
-    public static final String TAG_TELEPON = "telepon";
+    public static final String TAG_TELPON = "telpon";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        rv = (RecyclerView) findViewById(R.id.recyclerV);
+        recyclerView = findViewById(R.id.recyclerV);
         fab = findViewById(R.id.floatingBtn);
-        BacaData();
+        bacadata();
         adapter = new TemanAdapter(temanArrayList);
-        RecyclerView.LayoutManager lm = new LinearLayoutManager(MainActivity.this);
-        rv.setLayoutManager(lm);
-        rv.setAdapter(adapter);
-
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,8 +61,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void BacaData() {
+    public void bacadata() {
         temanArrayList.clear();
+
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonArrayRequest jArr = new JsonArrayRequest(url_select, new Response.Listener<JSONArray>() {
             @Override
@@ -75,9 +75,10 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         JSONObject obj = response.getJSONObject(i);
                         Teman item = new Teman();
+
                         item.setId(obj.getString(TAG_ID));
                         item.setNama(obj.getString(TAG_NAMA));
-                        item.setTelepon(obj.getString(TAG_TELEPON));
+                        item.setTelpon(obj.getString(TAG_TELPON));
 
                         //menambah item ke array
                         temanArrayList.add(item);
@@ -87,13 +88,12 @@ public class MainActivity extends AppCompatActivity {
                 }
                 adapter.notifyDataSetChanged();
             }
-
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 error.printStackTrace();
-                Toast.makeText(MainActivity.this, "gagal", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "gagal", Toast.LENGTH_SHORT).show();
             }
         });
         requestQueue.add(jArr);

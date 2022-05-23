@@ -7,7 +7,7 @@
     tools:context=".TambahTeman">
 
     <EditText
-        android:id="@+id/edNama"
+        android:id="@+id/tietNama"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="112dp"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edTelepon"
+        android:id="@+id/tietTelpon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="88dp"
@@ -29,20 +29,20 @@
         android:hint="Telepon"
         android:inputType="phone"
         android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="@+id/edNama"
+        app:layout_constraintEnd_toEndOf="@+id/tietNama"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/edNama"
-        app:layout_constraintTop_toBottomOf="@+id/edNama" />
+        app:layout_constraintStart_toStartOf="@+id/tietNama"
+        app:layout_constraintTop_toBottomOf="@+id/tietNama" />
 
     <Button
-        android:id="@+id/btnSimpan"
+        android:id="@+id/buttonSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="152dp"
         android:text="Simpan"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/edTelepon"
-        app:layout_constraintStart_toStartOf="@+id/edTelepon"
-        app:layout_constraintTop_toBottomOf="@+id/edTelepon"
+        app:layout_constraintEnd_toEndOf="@+id/tietTelpon"
+        app:layout_constraintStart_toStartOf="@+id/tietTelpon"
+        app:layout_constraintTop_toBottomOf="@+id/tietTelpon"
         app:layout_constraintVertical_bias="0.2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

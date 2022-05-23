@@ -3,6 +3,7 @@ package com.example.databasemysql;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DownloadManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,40 +27,42 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TambahTeman extends AppCompatActivity {
-    private EditText editNama, editTelepon;
+    private EditText tNama, tTelpon;
     private Button simpanBtn;
     String nm, tlp;
     int success;
 
-    private static String url_insert = "http://10.0.2.2/umyTI/tambahtm.php";
-    private  static final  String TAG = TambahTeman.class.getSimpleName();
-    private  static  final  String TAG_SUCCES = "success";
+    private static String url_insert = "https://20200140010.praktikumtiumy.com/tambahtm.php";
+    private static final String TAG = TambahTeman.class.getSimpleName();
+    private static final String TAG_SUCCES = "success";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tambah_teman);
 
-        editNama = findViewById(R.id.edNama);
-        editTelepon = findViewById(R.id.edTelepon);
-        simpanBtn = findViewById(R.id.btnSimpan);
+        tNama = (EditText) findViewById(R.id.tietNama);
+        tTelpon = (EditText) findViewById(R.id.tietTelpon);
+        simpanBtn = (Button) findViewById(R.id.buttonSave);
 
         simpanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+
                 SimpanData();
             }
         });
     }
-    public void SimpanData(){
-        if (editNama.getText().toString().equals("")||editTelepon.getText().toString().equals("")){
-            Toast.makeText(TambahTeman.this, "Semua harus diisi data", Toast.LENGTH_LONG).show();
-        }
-        else{
-            nm = editNama.getText().toString();
-            tlp = editTelepon.getText().toString();
 
-            RequestQueue requestQueue = Volley. newRequestQueue(getApplicationContext());
+    public void SimpanData() {
+        if (tNama.getText().toString().equals("") || tTelpon.getText().toString().equals("")) {
+            Toast.makeText(TambahTeman.this, "Semua harus diisi data", Toast.LENGTH_SHORT).show();
+        } else {
+            nm = tNama.getText().toString();
+            tlp = tTelpon.getText().toString();
+
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
             StringRequest strReq = new StringRequest(Request.Method.POST, url_insert, new Response.Listener<String>() {
                 @Override
@@ -69,9 +72,9 @@ public class TambahTeman extends AppCompatActivity {
                         JSONObject jObj = new JSONObject(response);
                         success = jObj.getInt(TAG_SUCCES);
                         if (success == 1) {
-                            Toast.makeText(TambahTeman.this, "Sukses simpan data", Toast.LENGTH_LONG).show();
+                            Toast.makeText(TambahTeman.this, "Sukses simpan data", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(TambahTeman.this, "gagal", Toast.LENGTH_LONG).show();
+                            Toast.makeText(TambahTeman.this, "gagal", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -80,23 +83,29 @@ public class TambahTeman extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e(TAG, "Error : "+error.getMessage());
-                    Toast.makeText(TambahTeman.this, "Gagal simpan data", Toast.LENGTH_LONG).show();
+                    Log.e(TAG, "Error :" + error.getMessage());
+                    Toast.makeText(TambahTeman.this, "Gagal simpan data", Toast.LENGTH_SHORT).show();
                 }
-            }){
-
+            }) {
                 @Override
-                protected Map<String,String> getParams(){
-                    Map<String,String> params = new HashMap<>();
+                protected Map<String, String> getParams() {
+                    nm = tNama.getText().toString();
+                    tlp = tTelpon.getText().toString();
 
-                    params.put("nama",nm);
-                    params.put("telepon",tlp);
+                    Map<String, String> params = new HashMap<>();
+                    params.put("nama", nm);
+                    params.put("telpon", tlp);
 
+                    callHome();
                     return params;
                 }
             };
             requestQueue.add(strReq);
         }
-
+    }
+    public void callHome(){
+        Intent intent = new Intent(TambahTeman.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

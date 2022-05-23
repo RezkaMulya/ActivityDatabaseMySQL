@@ -36,12 +36,12 @@ public class Teman implements Serializable{
         this.nama = nama;
     }
 
-    public String getTelepon() {
+    public String getTelpon() {
 
         return telepon;
     }
 
-    public void setTelepon(String telepon) {
+    public void setTelpon(String telepon) {
 
         this.telepon = telepon;
     }

@@ -14,6 +14,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,37 +38,38 @@ import java.util.Map;
 public class TemanAdapter extends RecyclerView.Adapter<TemanAdapter.TemanViewHolder> {
     private ArrayList<Teman> listData;
 
-    public TemanAdapter(ArrayList<Teman> listData){
+    public TemanAdapter(ArrayList<Teman> listData) {
 
         this.listData = listData;
     }
 
     @Override
-    public TemanViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TemanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInf = LayoutInflater.from(parent.getContext());
-        View v = layoutInf.inflate(R.layout.row_data_teman,parent,false);
-        return new TemanViewHolder(v);
+        View view = layoutInf.inflate(R.layout.row_data_teman, parent,false);
+        return new TemanViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(TemanViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TemanViewHolder holder, int position) {
         String nm, tlp, id;
 
         nm = listData.get(position).getNama();
-        tlp = listData.get(position).getTelepon();
+        tlp = listData.get(position).getTelpon();
         id = listData.get(position).getId();
+
 
         holder.namaTxt.setTextColor(Color.BLUE);
         holder.namaTxt.setTextSize(20);
-
         holder.namaTxt.setText(nm);
         holder.telponTxt.setText(tlp);
 
-        holder.kartu.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.cardku.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public boolean onLongClick(View v) {
-                PopupMenu pm = new PopupMenu(v.getContext(), v);
+            public boolean onLongClick(View v){
+                PopupMenu pm = new PopupMenu(v.getContext(),v);
                 pm.inflate(R.menu.popup1);
+
                 pm.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -114,13 +116,12 @@ public class TemanAdapter extends RecyclerView.Adapter<TemanAdapter.TemanViewHol
                 });
                 pm.show();
                 return true;
-
-                    }
-                });
+            }
+        });
     }
 
     private void HapusData(final String idx){
-        String url_update = "http://10.0.2.2/umyTI/deletetm.php";
+        String url_update = "https://20200140010.praktikumtiumy.com/deletetm.php";
         final String TAG = MainActivity.class.getSimpleName();
         final String TAG_SUCCES = "success";
         final int[] sukses = new int[1];
@@ -158,19 +159,17 @@ public class TemanAdapter extends RecyclerView.Adapter<TemanAdapter.TemanViewHol
 
     @Override
     public int getItemCount() {
-
-        return (listData != null)? listData.size() : 0;
+        return (listData != null)?listData.size() : 0;
     }
 
-    public class TemanViewHolder extends  RecyclerView.ViewHolder{
-        private CardView kartu;
+    public class TemanViewHolder extends RecyclerView.ViewHolder {
+        private CardView cardku;
         private TextView namaTxt, telponTxt;
-        public TemanViewHolder(View v){
-            super(v);
-            kartu = (CardView) v.findViewById(R.id.kartuku);
-            namaTxt = (TextView) v.findViewById(R.id.textNama);
-            telponTxt = (TextView) v.findViewById(R.id.textTelpon);
-
+        public TemanViewHolder(View view) {
+            super(view);
+            cardku = (CardView) view.findViewById(R.id.kartuku);
+            namaTxt = (TextView) view.findViewById(R.id.textNama);
+            telponTxt = (TextView) view.findViewById(R.id.textTelpon);
         }
     }
 }
